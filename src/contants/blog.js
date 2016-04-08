@@ -1,0 +1,14 @@
+export const LOAD_BLOG = 'LOAD_BLOG';
+export const LOAD_BLOG_SUCCESS = 'LOAD_BLOG_SUCCESS';
+export const LOAD_BLOG_FAIL = 'LOAD_BLOG_FAIL';
+
+export const FIND_BLOG_BY_ID = 'FIND_BLOG_BY_ID';
+export const FIND_BLOG_BY_ID_SUCCESS = 'FIND_BLOG_BY_ID_SUCCESS';
+export const FIND_BLOG_BY_ID_FAIL = 'FIND_BLOG_BY_ID_FAIL';
+
+
+export const CREATE_BLOG = 'CREATE_BLOG';
+export const SAVE_BLOG = 'SAVE_BLOG';
+export const SAVE_BLOG_SUCCESS = 'SAVE_BLOG_SUCCESS';
+export const SAVE_BLOG_FAIL = 'SAVE_BLOG_FAIL';
+

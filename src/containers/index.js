@@ -1,0 +1,7 @@
+export App from './App'
+export Home from './Home'
+export Login from './Login'
+export List from './List'
+export Dashboard from './Dashboard'
+export Post from './Post'
+export NotFound from './NotFound'

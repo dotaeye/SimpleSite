@@ -1,0 +1,40 @@
+import React, {Component, PropTypes} from 'react';
+import ReactDOM from 'react-dom/server';
+import serialize from 'serialize-javascript';
+
+/**
+ * Wrapper component containing HTML metadata and boilerplate tags.
+ * Used in server-side code only to wrap the string output of the
+ * rendered route component.
+ *
+ * The only thing this component doesn't (and can't) include is the
+ * HTML doctype declaration, which is added to the rendered output
+ * by the server.js file.
+ */
+export default class Html extends Component {
+  static propTypes = {
+    assets: PropTypes.object,
+    component: PropTypes.node,
+    store: PropTypes.object
+  };
+
+  render() {
+    const {assets, component, store} = this.props;
+    const content = component ? ReactDOM.renderToString(component) : '';
+
+    return (
+      <html lang="en-us">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href='/static/styles/main.css' rel="stylesheet" type="text/css"/>
+      </head>
+      <body>
+      <div id="main" dangerouslySetInnerHTML={{__html: content}}/>
+      <script dangerouslySetInnerHTML={{__html: `window.__DATA__=${serialize(store.getState())};`}} charSet="UTF-8"/>
+      <script src={assets.common} charSet="UTF-8"/>
+      <script src={assets.main} charSet="UTF-8"/>
+      </body>
+      </html>
+    );
+  }
+}

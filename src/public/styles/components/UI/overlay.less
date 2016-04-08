@@ -1,0 +1,15 @@
+.overlay {
+  .position();
+  position: fixed;
+  z-index: 10000;
+  background-color: #000000;
+  opacity: 0;
+  .transition(opacity 0.55s linear);
+  display: none;
+}
+
+.overlay-show {
+  display: block;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
