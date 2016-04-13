@@ -6,15 +6,6 @@ import { loadBlogs, findBlog } from '../actions/blog';
 import { LinkContainer } from 'react-router-bootstrap'
 import { asyncConnect } from 'redux-async-connect';
 
-function fetchData(getState, dispatch) {
-    const promises = [];
-    const state = getState();
-    if (!(state.blog && state.blog.list.length > 0)) {
-        promises.push(dispatch(loadBlogs()));
-    }
-    return Promise.all(promises);
-}
-
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];

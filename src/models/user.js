@@ -1,13 +1,14 @@
 import mongoose from 'mongoose';
+import passportLocalMongoose from 'passport-local-mongoose';
 
-var UserSchema = new mongoose.Schema({
-    username: String,
-    password: {type: String},
-    created: {type: Date, default: Date.now}
+const UserSchema = new mongoose.Schema({
+  username: String,
+  password: String,
+  created: {type: Date, default: Date.now}
 });
 
-UserSchema.set('toJSON', { hide: 'password' });
+UserSchema.plugin(passportLocalMongoose);
 
-var Users = mongoose.model('Users', UserSchema, 'Users');
+const Users = mongoose.model('Users', UserSchema, 'Users');
 
 export default Users;

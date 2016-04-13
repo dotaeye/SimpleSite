@@ -7,6 +7,7 @@ import {
   Login,
   Dashboard,
   List,
+  Menu,
   Post,
   NotFound
 } from './containers';
@@ -17,7 +18,7 @@ export default (store) => {
       const { auth: { user }} = store.getState();
       if (!user) {
         // oops, not logged in, so can't be here!
-        replace(null, '/login');
+        replace('/login');
       }
       cb();
     }
@@ -48,6 +49,8 @@ export default (store) => {
       <Route path='login' component={Login}/>
 
       <Route path='dashboard' component={Dashboard}/>
+
+      <Route path='menu' component={Menu} onEnter={requireLogin}/>
 
       <Route path='create' component={Post}/>
 

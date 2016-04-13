@@ -1,4 +1,6 @@
 import express from 'express';
+import session from 'express-session';
+import connectMongo from 'connect-mongo';
 import path from 'path';
 import favicon from 'serve-favicon';
 import compression from 'compression';
@@ -6,7 +8,10 @@ import mongoose from 'mongoose';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
 import cors from 'cors';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import qs from 'query-string';
@@ -20,14 +25,11 @@ import assets from './utils/assets';
 import getRoutes from './routes';
 import config from './configs/server';
 import Html from './components/Html';
+import { User } from './models';
 
-mongoose.connect(config.mongo.data, (err)=> {
-  if (err) {
-    console.log('connection error', err);
-  } else {
-    console.log('connection successful');
-  }
-});
+const mongoStore = connectMongo(session);
+
+mongoose.connect(config.mongo.data);
 
 const server = express();
 
@@ -38,13 +40,34 @@ server.use(compression());
 server.use(logger('dev'));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: false}));
+server.use(methodOverride());
 server.use(cookieParser());
-server.use(cors());
+server.use(cors({
+  origin: true,
+  credentials: true
+}));
 server.use(favicon(path.join(__dirname, '/public/images/favicon.ico')));
-server.use(config.virtualPath + '/static', express.static(path.join(__dirname, 'public')));
-server.use(config.virtualPath + '/static', (req, res) => {
+server.use(config.virtualPath + '/static', express.static(path.join(__dirname, 'public')), (req, res) => {
   res.render('error', {status: 404, stack: 'no such file'});
 });
+
+server.use(session(
+  {
+    secret: 'secret',
+    store: new mongoStore({
+      mongooseConnection: mongoose.connection
+    }),
+    resave: false,
+    saveUninitialized: false
+  }
+));
+
+server.use(passport.initialize());
+server.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 server.use((req, res) => {

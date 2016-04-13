@@ -7685,6 +7685,90 @@ dd {
 .messagebox.loading .messagebox-body td:last-child {
   display: none;
 }
+.tab-bar {
+  margin: 0 0 -1px 0;
+  padding: 0;
+  height: 36px;
+  white-space: nowrap;
+  position: relative;
+}
+.tab-bar .tab-item {
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  padding: 8px 12px;
+  outline: none;
+  border: 1px solid transparent;
+  z-index: 2;
+}
+.tab-bar .tab-item.right {
+  float: right;
+}
+.tab-bar .tab-item.selected {
+  border: 1px solid #bbb;
+  border-bottom: none;
+  background: #fff;
+}
+.tab-bar .tab-item.hover .tab-menu {
+  display: block;
+}
+.tab-bar .tab-item .tab-menu {
+  text-align: left;
+  z-index: 90;
+  position: absolute;
+  left: 0;
+  padding: 0;
+  top: 36px;
+  display: none;
+  background: #ccc;
+  min-width: 160px;
+}
+.tab-bar .tab-item .tab-menu ul {
+  padding: 0;
+}
+.tab-bar .tab-item .tab-menu ul li {
+  list-style: none;
+  line-height: 30px;
+  white-space: nowrap;
+  margin: 0;
+}
+.tab-bar .tab-item .tab-menu ul li a {
+  display: block;
+  padding: 3px 0;
+  width: 100%;
+  line-height: 30px;
+  color: #333;
+}
+.tab-bar .tab-item .tab-menu ul li a:hover {
+  background: #bbb;
+}
+.tab-bar .tab-item .tab-menu ul li a.tab-menu-level0 {
+  padding: 3px 12px;
+}
+.tab-bar .tab-item .tab-menu ul li a.tab-menu-level1 {
+  padding: 3px 24px;
+}
+.tab-bar .tab-item .tab-menu ul li a.tab-menu-level2 {
+  padding: 3px 36px;
+}
+.tab-content {
+  transition: all .3s ease;
+}
+.tab-content .tab-content-item {
+  width: 100%;
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all .3s ease;
+}
+.tab-content .tab-content-item.selected {
+  height: auto;
+  overflow: initial;
+  opacity: 1;
+}
 .navbar-wrapper {
   position: absolute;
   top: 0;
